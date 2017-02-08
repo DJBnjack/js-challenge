@@ -40,15 +40,7 @@ app.post('/challenge', function(req, res) {
   console.log(req.body.input);
 
   var f = new Function(b64DecodeUnicode(req.body.input));
-  var execution = function(f) {
-    retString = "";
-    var console = {};
-    console.log = function(str){retString += str;};
-    f();
-    return retString;
-  };
-
-  result = execution(f);
+  result = f();
   res.send(JSON.stringify({output: b64EncodeUnicode(result)}, null, 2));
 });
 
